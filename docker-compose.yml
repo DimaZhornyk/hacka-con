@@ -1,0 +1,25 @@
+version: '3'
+services:
+  worker:
+    container_name: app_worker
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "9000:9000"
+    networks:
+      - app-network
+
+  preprocessor:
+    container_name: app_preprocessor
+    build:
+      context: .
+      dockerfile: Dockerfile.preprocessor
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

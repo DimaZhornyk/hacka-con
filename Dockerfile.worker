@@ -1,0 +1,9 @@
+FROM golang:1.16-alpine
+
+WORKDIR /app
+
+COPY worker/src /
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -v -o worker
+
+CMD ["/app/worker"]
